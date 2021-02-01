@@ -34,7 +34,7 @@
         <item name="android:textAppearance">?textAppearanceHeadline6</item>
     </style>
 
-    <style name="cal_operand_button">
+    <style name="equal">
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">70dp</item>
         <item name="android:layout_marginLeft">5dp</item>
