@@ -1,10 +1,10 @@
-package ModelView;
+package modelview;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.rb_calculator_assignment.Util.Calculator;
+import com.example.rb_calculator_assignment.model.Calculator;
 
 public class MainViewModel extends ViewModel {
 
@@ -29,7 +29,8 @@ public class MainViewModel extends ViewModel {
                 }
                 case "*":  {
                     solution = calculator.multiply(operand1, operand2);
-                    break;}
+                    break;
+                }
                 case "/":  {
                     solution = calculator.divide(operand1, operand2);
                     break;
@@ -41,6 +42,10 @@ public class MainViewModel extends ViewModel {
 
     }
 
+    public double textToDouble(CharSequence text) {
+        return Calculator.getDouble(text);
+    }
+
     public void calculatePercentage(double operand1) {
         _results.setValue(calculator.percentage(operand1));
     }
@@ -48,10 +53,4 @@ public class MainViewModel extends ViewModel {
     public void plusNegate(double operand1) {
          _results.setValue(calculator.plusNegate(operand1));
     }
-
-    public void clearResults() {
-        _results.setValue(0d);
-    }
-
-
 }

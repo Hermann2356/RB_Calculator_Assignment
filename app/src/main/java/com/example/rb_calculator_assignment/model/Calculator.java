@@ -1,4 +1,4 @@
-package com.example.rb_calculator_assignment.Util;
+package com.example.rb_calculator_assignment.model;
 
 public class Calculator {
 
@@ -26,6 +26,10 @@ public class Calculator {
     
     public double plusNegate(double num) {
         return -(num);
+    }
+
+    public static double getDouble(CharSequence text) {
+        return Double.parseDouble(String.valueOf(text));
     }
     
 }

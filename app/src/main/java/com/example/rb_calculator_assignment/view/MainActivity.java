@@ -1,7 +1,6 @@
-package com.example.rb_calculator_assignment.View;
+package com.example.rb_calculator_assignment.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -9,12 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.rb_calculator_assignment.R;
-import com.example.rb_calculator_assignment.Util.ConvertUtils;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.color.MaterialColors;
 import com.google.android.material.textview.MaterialTextView;
 
-import ModelView.MainViewModel;
+import modelview.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         tvOutput = findViewById(R.id.output_tv);
-        operator = "";
+        operator = null;
         viewModel = new ViewModelProvider.NewInstanceFactory().create(MainViewModel.class);
         setPercentageOnClick();
         setNumOnClick();
@@ -87,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     operator = btn.getText().toString();
-                    operand1 = ConvertUtils.getDouble(tvOutput.getText());
+                    operand1 = viewModel.textToDouble(tvOutput.getText());
                     tvOutput.setText("0");
 
                     if (activeBtn != null)
@@ -107,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.calculatePercentage(ConvertUtils.getDouble(tvOutput.getText()));
+                viewModel.calculatePercentage(viewModel.textToDouble(tvOutput.getText()));
             }
         });
     }
@@ -117,9 +114,11 @@ public class MainActivity extends AppCompatActivity {
         equalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                operand2 = ConvertUtils.getDouble(tvOutput.getText());
+                operand2 = viewModel.textToDouble(tvOutput.getText());
                 viewModel.calculateExpression(operator, operand1, operand2);
-                resetActiveBtn();
+
+                if(activeBtn != null)
+                    resetActiveBtn();
             }
         });
     }
@@ -129,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         plusNegateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double output = ConvertUtils.getDouble(tvOutput.getText());
+                double output = viewModel.textToDouble(tvOutput.getText());
                 viewModel.plusNegate(output);
             }
         });
@@ -141,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 tvOutput.setText("0");
-                operator = "";
+                operator = null;
                 resetActiveBtn();
             }
         });
