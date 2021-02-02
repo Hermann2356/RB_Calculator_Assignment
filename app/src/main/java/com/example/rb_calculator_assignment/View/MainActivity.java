@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     MaterialTextView tvOutput;
     MainViewModel viewModel;
-    double num1, num2;
+    double operand1, operand2;
     String operator;
     MaterialButton activeBtn;
 
@@ -29,15 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tvOutput = findViewById(R.id.output_tv);
-        operator = "";
-        viewModel = new ViewModelProvider.NewInstanceFactory().create(MainViewModel.class);
-        setNumOnClick();
-        setOperandClick();
-        setClearOnClick();
-        setDeleteOnClick();
-        setEqualOnClick();
-        setPlusNegate();
+        initView();
 
         viewModel.getResults().observe(this, new Observer<Double>() {
             @Override
@@ -49,13 +41,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void initView() {
+        tvOutput = findViewById(R.id.output_tv);
+        operator = "";
+        viewModel = new ViewModelProvider.NewInstanceFactory().create(MainViewModel.class);
+        setPercentageOnClick();
+        setNumOnClick();
+        setOperandClick();
+        setClearOnClick();
+        setDeleteOnClick();
+        setEqualOnClick();
+        setPlusNegate();
+    }
 
-
-
-    // Initialize on click listeners for numeric btn and period btn
     private void setNumOnClick() {
 
-        int[] numBtnId = new int[] {
+        int[] numBtnId = new int[]{
                 R.id.zero_btn, R.id.one_btn, R.id.two_btn, R.id.three_btn,
                 R.id.four_btn, R.id.five_btn, R.id.six_btn, R.id.seven_btn,
                 R.id.eight_btn, R.id.nine_btn, R.id.period_btn};
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(tvOutput.getText().toString().equals("0"))
+                    if (tvOutput.getText().toString().equals("0"))
                         tvOutput.setText(btn.getText());
                     else
                         tvOutput.append(btn.getText());
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setOperandClick() {
-        int[] operandBtnId = new int[] {
+        int[] operandBtnId = new int[]{
                 R.id.period_btn, R.id.add_btn, R.id.subtract_btn,
                 R.id.multiply_btn, R.id.division_btn
         };
@@ -86,13 +87,12 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     operator = btn.getText().toString();
-                    num1 = ConvertUtils.getDouble(tvOutput.getText());
+                    operand1 = ConvertUtils.getDouble(tvOutput.getText());
                     tvOutput.setText("0");
 
-                    if(activeBtn != null)
-                        activeBtn.setBackgroundColor(getResources()
-                            .getColor(R.color.design_default_color_on_primary));
-
+                    if (activeBtn != null)
+                        resetActiveBtn();
+                    
                     btn.setBackgroundColor(getResources().getColor(R.color.purple_500));
                     activeBtn = btn;
                 }
@@ -102,15 +102,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void setPercentageOnClick() {
+        MaterialButton btn = findViewById(R.id.percentage_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.calculatePercentage(ConvertUtils.getDouble(tvOutput.getText()));
+            }
+        });
+    }
+
     private void setEqualOnClick() {
         MaterialButton equalBtn = findViewById(R.id.equal_btn);
         equalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                num2 = ConvertUtils.getDouble(tvOutput.getText());
-                viewModel.calculateExpression(operator, num1, num2);
-                activeBtn.setBackgroundColor(getResources().
-                        getColor(R.color.design_default_color_on_primary));
+                operand2 = ConvertUtils.getDouble(tvOutput.getText());
+                viewModel.calculateExpression(operator, operand1, operand2);
+                resetActiveBtn();
             }
         });
     }
@@ -133,8 +142,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 tvOutput.setText("0");
                 operator = "";
-                activeBtn.setBackgroundColor(getResources().
-                        getColor(R.color.design_default_color_on_primary));
+                resetActiveBtn();
             }
         });
     }
@@ -145,9 +153,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 CharSequence outputTxt = tvOutput.getText();
-                if(outputTxt.length() == 1)
+                if (outputTxt.length() == 1)
                     tvOutput.setText("0");
-                else if(outputTxt.length() == 2 && outputTxt.toString().charAt(0) == '-')
+                else if (outputTxt.length() == 2 && outputTxt.toString().charAt(0) == '-')
                     tvOutput.setText("0");
                 else
                     tvOutput.setText(outputTxt.toString().substring(0, outputTxt.length() - 1));
@@ -156,9 +164,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resetActiveBtn() {
-
+        activeBtn.setBackgroundColor(getResources().
+                getColor(R.color.design_default_color_on_primary));
     }
-
-
-
 }

@@ -34,9 +34,7 @@ public class MainViewModel extends ViewModel {
                     solution = calculator.divide(operand1, operand2);
                     break;
                 }
-                default: {
-
-                }
+                default:
             }
             _results.setValue(solution);
         }
