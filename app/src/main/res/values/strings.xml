@@ -20,4 +20,5 @@
     <string name="multiple">x</string>
     <string name="divide">/</string>
     <string name="percentage">%</string>
+    <string name="equal">=</string>
 </resources>

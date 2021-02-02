@@ -6,66 +6,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".View.MainActivity" >
+
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/output_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.MyTheme.Headline4"
-        android:layout_alignParentRight="true"
-        android:paddingRight="10dp" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/input_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.MyTheme.Headline3"
-        android:layout_below="@+id/output_tv"
-        android:layout_alignParentRight="true"
-        android:text="234"
-
-        android:paddingRight="10dp" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="50dp"
+        android:text="@string/zero"
+        android:paddingRight="20dp"
+        android:textAppearance="@style/TextAppearance.MyTheme.Headline3" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/input_tv"
-        android:background="@drawable/rounded_layout"
-        android:layout_marginTop="5dp">
+        android:layout_below="@id/output_tv"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/rounded_layout">
 
         <LinearLayout
             android:id="@+id/row_1"
             style="@style/button_row"
-            android:layout_weight="1"
             android:orientation="horizontal"
             android:weightSum="4">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/clear_btn"
                 style="@style/equal"
-                android:layout_below="@id/input_tv"
                 android:layout_weight="1"
                 android:text="@string/clear" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/plus_negate_btn"
                 style="@style/equal"
-                android:layout_below="@id/input_tv"
                 android:layout_weight="1"
                 android:text="@string/plus_minus" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/percentage_btn"
                 style="@style/equal"
-                android:layout_below="@id/input_tv"
                 android:layout_weight="1"
                 android:text="@string/percentage" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/multiply_btn"
                 style="@style/equal"
-                android:layout_below="@id/input_tv"
                 android:layout_weight="1"
                 android:text="@string/multiple" />
         </LinearLayout>
@@ -74,28 +61,24 @@
             android:id="@+id/row_2"
             style="@style/button_row"
             android:layout_below="@+id/row_1"
-            android:layout_weight="1"
             android:orientation="horizontal"
             android:weightSum="4">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/seven_btn"
                 style="@style/cal_button"
-                android:layout_below="@id/input_tv"
                 android:layout_weight="1"
                 android:text="@string/seven" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/eight_btn"
                 style="@style/cal_button"
-                android:layout_below="@id/input_tv"
                 android:layout_weight="1"
                 android:text="@string/eight" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/nine_btn"
                 style="@style/cal_button"
-                android:layout_below="@id/input_tv"
                 android:layout_weight="1"
                 android:text="@string/nine" />
 
@@ -110,7 +93,6 @@
             android:id="@+id/row_3"
             style="@style/button_row"
             android:layout_below="@+id/row_2"
-            android:layout_weight="1"
             android:orientation="horizontal"
             android:weightSum="4">
 
@@ -143,7 +125,6 @@
             android:id="@+id/row_4"
             style="@style/button_row"
             android:layout_below="@+id/row_3"
-            android:layout_weight="1"
             android:orientation="horizontal"
             android:weightSum="4">
 
@@ -176,7 +157,6 @@
             android:id="@+id/row_5"
             style="@style/button_row"
             android:layout_below="@+id/row_4"
-            android:layout_weight="1"
             android:orientation="horizontal"
             android:weightSum="4">
 
@@ -202,7 +182,7 @@
                 android:id="@+id/equal_btn"
                 style="@style/equal"
                 android:layout_weight="1"
-                android:text="=" />
+                android:text="@string/equal" />
         </LinearLayout>
 
     </RelativeLayout>
